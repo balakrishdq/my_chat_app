@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:my_chat_app/controllers/firebase_controller.dart';
-
-import 'package:my_chat_app/pages/home_page.dart';
 import 'package:my_chat_app/pages/login/hello_screen.dart';
 
 const bool USE_EMULATOR = true;
