@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_chat_app/pages/login/select_country.dart';
+import 'package:my_chat_app/pages/login/verify_number.dart';
 
 class EditNumber extends StatefulWidget {
   const EditNumber({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class EditNumber extends StatefulWidget {
 }
 
 class _EditNumberState extends State<EditNumber> {
-  var enterPhoneNumber = TextEditingController();
+  var _enterPhoneNumber = TextEditingController();
   Map<String, dynamic> data = {'name': 'India', 'code': '+91'};
   Map<String, dynamic>? dataResult;
   @override
@@ -72,7 +73,7 @@ class _EditNumberState extends State<EditNumber> {
                   Expanded(
                     child: CupertinoTextField(
                       placeholder: 'Enter your Number',
-                      // controller: _enterPhoneNumber,
+                      controller: _enterPhoneNumber,
                       keyboardType: TextInputType.number,
                       style: TextStyle(
                         fontSize: 25,
@@ -98,9 +99,15 @@ class _EditNumberState extends State<EditNumber> {
             ),
             child: CupertinoButton.filled(
               child: Text(
-                'Submit',
+                'Request Code',
               ),
-              onPressed: (() {}),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => VerifyNumber(
+                            number: data['code']! + _enterPhoneNumber.text)));
+              },
             ),
           ),
         ],

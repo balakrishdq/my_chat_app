@@ -12,5 +12,5 @@ Future connectToFirebaseEmulator() async {
       sslEnabled: false,
       persistenceEnabled: false);
 
-  FirebaseAuth.instance.useAuthEmulator('localHost', 9099);
+  FirebaseAuth.instance.useAuthEmulator(localHost, 9099);
 }
