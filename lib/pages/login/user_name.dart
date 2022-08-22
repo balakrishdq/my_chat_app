@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:my_chat_app/pages/home_page.dart';
@@ -7,6 +8,26 @@ class UserName extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   final _text = TextEditingController();
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  void createUserInFirestore() {
+    users
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .limit(1)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        users.add({
+          'name': _text.text,
+          'phone': FirebaseAuth.instance.currentUser!.phoneNumber,
+          'status': 'Available',
+          'uid': FirebaseAuth.instance.currentUser!.uid
+        });
+      }
+    }).catchError((error) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -35,6 +56,7 @@ class UserName extends StatelessWidget {
                 FirebaseAuth.instance.currentUser!
                     .updateDisplayName(_text.text);
 
+                createUserInFirestore();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Homepage()));
               })

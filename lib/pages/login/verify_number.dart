@@ -29,14 +29,15 @@ class _VerifyNumberState extends State<VerifyNumber> {
   Future _verifyPhoneNumber() async {
     _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredentials) async {},
-        verificationFailed: (verificationFailed) async {},
-        codeSent: ((verificationId, resendingToken) async {
+        verificationCompleted: (PhoneAuthCredential credential) async {},
+        verificationFailed: (FirebaseAuthException exception) async {},
+        codeSent: ((String verificationId, int? resendToken) async {
           setState(() {
             this._verificationId = verificationId;
           });
         }),
-        codeAutoRetrievalTimeout: ((verificationId) async {}));
+        timeout: const Duration(seconds: 60),
+        codeAutoRetrievalTimeout: ((String verificationId) async {}));
   }
 
   Future _sendCodeToFirebase({String? code}) async {
