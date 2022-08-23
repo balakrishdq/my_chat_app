@@ -1,15 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:my_chat_app/controllers/firebase_controller.dart';
 import 'package:my_chat_app/pages/login/hello_screen.dart';
 
 const bool USE_EMULATOR = true;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  if (USE_EMULATOR) {
-    connectToFirebaseEmulator();
-  }
+  // if (USE_EMULATOR) {
+  //   connectToFirebaseEmulator();
+  // }
   runApp(const MyApp());
 }
 
